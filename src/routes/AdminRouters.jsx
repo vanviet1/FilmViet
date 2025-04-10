@@ -39,11 +39,9 @@ function AdminRouters(props) {
   ];
   return (
     <Routes>
-      <Route element={<AuthRoute />}>
         {routes.map((route, index) => (
           <Route key={index} path={route.path} element={route.element} />
         ))}
-      </Route>
     </Routes>
   );
 }

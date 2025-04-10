@@ -14,17 +14,18 @@ import {
 import { ContextFormUi } from "../../../../context/FormUiContext";
 import { ContextAcount } from "../../../../context/AcountProvider";
 import { useNavigate } from "react-router-dom";
+import { ContextAuthen } from "../../../../context/AuthenProvider";
 
 const inner = {
   email: "",
   password: "",
 };
-
 const Login = () => {
   const { setStatusUiRegisterForm, setStatusUiForm, statusUiForm } = useContext(ContextFormUi);
   const { acounts } = useContext(ContextAcount);
   const [formLogin, setFormLogin] = useState(inner);
   const [errors, setErrors] = useState(inner);
+  const { saveLocal } = useContext(ContextAuthen);
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -43,28 +44,18 @@ const Login = () => {
   };
 
   const handleLogin = () => {
-    if (!validateForm()) return;
 
+    if (!validateForm()) return;
     const user = acounts.find(
       (account) => account.email === formLogin.email && account.password === formLogin.password
     );
-
+    saveLocal("accountLogin",user);
+    setStatusUiForm(false);
     if (!user) {
       setErrors({ ...errors, email: "Email hoặc mật khẩu không đúng." });
       return;
     }
 
-    localStorage.setItem("acounts", JSON.stringify(user));
-    setStatusUiForm(false);
-    console.log(user);
-    
-    if (user.role) {
-      navigate("/admin");
-    } else {
-      navigate("/");
-    }
-
-    window.location.reload();
   };
 
   return (

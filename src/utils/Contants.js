@@ -238,3 +238,4 @@ export const initialOptions = {
     currency: "USD",
     intent: "capture"
   };
+export const SECRET_KEY = "vitopkopk1302";

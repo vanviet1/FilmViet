@@ -8,27 +8,19 @@ import { ContextAcount } from "../../../context/AcountProvider";
 import { Link } from "react-router-dom";
 import { listMenu } from "../../../utils/Contants";
 import { listInformation } from "../../../utils/Contants";
+import { ContextAuthen } from "../../../context/AuthenProvider";
 
 const Header = () => {
-  const { users, setUsers } = useContext(ContextAcount);
   const [nav, setNav] = useState(false);
   const [scrolling, setScrolling] = useState(false);
   const { setStatusUiForm } = useContext(ContextFormUi);
   const [showDropdown, setShowDropdown] = useState(false);
+    const { accountLogin, logout } = useContext(ContextAuthen);
   let dropdownTimeout;
 
   const handleNav = () => {
     setNav(!nav);
   };
-
-  const handleLogout = () => {
-    if (users) {
-      localStorage.removeItem("acounts");
-      setUsers({});
-      window.location.reload();
-    }
-  };
-
   useEffect(() => {
     const handleScroll = () => {
       setScrolling(window.scrollY > 50);
@@ -65,10 +57,9 @@ const Header = () => {
               </Link>
             </li>
           ))}
-        </ul>
-
+        </ul>  
         {/* User info */}
-        {!users ? (
+        {!accountLogin ? (
         
           <button
             onClick={() => setStatusUiForm(true)}
@@ -102,7 +93,7 @@ const Header = () => {
             >
               <img
                 className="w-10 h-10 rounded-full"
-                src={users.imgUrl}
+                src={accountLogin?.imgUrl}
                 alt="Avatar"
               />
 
@@ -117,7 +108,7 @@ const Header = () => {
                   }}
                 >
                   <p className="text-sm pb-2 border-b border-gray-700">
-                    {users.name || users.email}
+                    {accountLogin?.name || accountLogin?.email}
                   </p>
                   <ul className="mt-2">
                     {listInformation?.map((item) => (
@@ -132,7 +123,7 @@ const Header = () => {
                     ))}
                   </ul>
                   <button
-                    onClick={handleLogout}
+                    onClick={logout}
                     className="mt-2 w-full text-left px-3 py-2 bg-gray-800 rounded hover:bg-gray-700"
                   >
                     Đăng xuất
