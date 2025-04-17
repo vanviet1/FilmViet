@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { ContextFormUi } from '../../../../context/FormUiContext';
 
 function LangdingOut7() {
+  const { setStatusUiRegisterForm ,setStatusUiForm } = useContext(ContextFormUi);
   return (
     <div className=" min-h-screen flex flex-col justify-center items-center text-center ">
   <div className="text-center px-4">
@@ -11,7 +13,12 @@ function LangdingOut7() {
           Đắm chìm trong từng thước phim cùng công nghệ hình ảnh 4K sắc nét
           và dải âm thanh Dolby 5.1 sống động duy nhất tại Việt Nam.
         </p>
-        <button className="bg-transparent border-2 border-white px-6 py-2 rounded-full hover:bg-white hover:text-black transition">
+        <button 
+        onClick={() => {
+          setStatusUiRegisterForm(true);
+          setStatusUiForm(false);
+        }}
+        className="bg-transparent border-2 border-white px-6 py-2 rounded-full hover:bg-white hover:text-black transition">
           Đăng ký ngay
         </button>
       </div>

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button } from "@mui/material";
-
+import { ContextFormUi } from '../../../../context/FormUiContext'
 function LandingOut2() {
+ const { setStatusUiRegisterForm ,setStatusUiForm } = useContext(ContextFormUi);
   return (
     <div className="py-12">
       <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
@@ -19,7 +20,12 @@ function LandingOut2() {
             <h1 className="text-6xl font-bold">4</h1>
             <h2 className="text-3xl font-semibold">Thiết bị song song cùng lúc</h2>
           </div>
-          <button className="mt-6 px-6 py-3 bg-black border border-white font-semibold rounded-full hover:bg-white hover:text-black transition">
+          <button 
+           onClick={() => {
+            setStatusUiRegisterForm(true);
+            setStatusUiForm(false);
+          }}
+           className="mt-6 px-6 py-3 bg-black border border-white font-semibold rounded-full hover:bg-white hover:text-black transition">
           Đăng ký ngay
         </button>
         </div>

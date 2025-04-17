@@ -5,11 +5,11 @@ export const ContextAcount = createContext();
 
 export const AcountProvider = ({ children }) => {
     const [acounts, setAcounts] = useState([]);
-     const [users,setUsers] = useState({})
-     useEffect(()=>{
-      const userLogin = JSON.parse(localStorage.getItem('acounts'))
-      setUsers(userLogin)
-     },[])
+     const [users,setUsers] = useState([])
+    //  useEffect(()=>{
+    //   const userLogin = JSON.parse(localStorage.getItem('acounts'))
+    //   setUsers(userLogin)
+    //  },[])
      
     useEffect(() => {
       // Sử dụng fetchDocumentsRealtime để lắng nghe dữ liệu realtime

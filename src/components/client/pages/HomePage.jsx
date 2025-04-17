@@ -8,6 +8,7 @@ import { BiBookmark } from "react-icons/bi";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { ContextAcount } from "../../../context/AcountProvider";
 import Section from "../layouts/Section";
+import { ContextAuthen } from "../../../context/AuthenProvider";
 
 import { Button } from "@mui/material";
 import LandingOut1 from "./langdingOut/LandingOut1";
@@ -22,12 +23,13 @@ const HomePage = () => {
   const movies = useContext(ContextMovies);
   console.log(movies);
   const { users, setUser } = useContext(ContextAcount);
+  const  { accountLogin } = useContext(ContextAuthen)
 
   return (
     <div className="bg-black text-white">
       <Section />
       <div className="pt-[50px] px-10">
-        {!users ? (
+        {!accountLogin ? (
           <div>
             <LandingOut1 />
             <LandingOut2 />

@@ -12,7 +12,8 @@ const PATH_ROUTERS_CLIENT = {
     TRAILERFLIM:'/trailer/:id',
     PAYPACKAGE:'/payPackage/:id',
     PROMOTION:'/promotion',
-    BLOGPAGE:'/blog'
+    BLOGPAGE:'/blog',
+    ACCOUNT:"/account"
     
 }
 const PATH_ROUTERS_ADMIN = {

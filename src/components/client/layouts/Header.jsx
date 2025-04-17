@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { listMenu } from "../../../utils/Contants";
 import { listInformation } from "../../../utils/Contants";
 import { ContextAuthen } from "../../../context/AuthenProvider";
+import { useLocation } from "react-router-dom";
 
 const Header = () => {
   const [nav, setNav] = useState(false);
@@ -16,24 +17,33 @@ const Header = () => {
   const { setStatusUiForm } = useContext(ContextFormUi);
   const [showDropdown, setShowDropdown] = useState(false);
     const { accountLogin, logout } = useContext(ContextAuthen);
+    const location = useLocation();
+
   let dropdownTimeout;
 
   const handleNav = () => {
     setNav(!nav);
   };
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolling(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    if (location.pathname === "/") {
+      // Trang chủ: header trong suốt và cuộn thì chuyển nền
+      const handleScroll = () => {
+        setScrolling(window.scrollY > 50);
+      };
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    } else {
+      // Các trang khác: header luôn có nền
+      setScrolling(true);
+    }
+  }, [location.pathname]);
+  
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolling ? "bg-black/90" : "bg-transparent"
-      }`}
+    className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      scrolling ? "bg-black/90" : "bg-transparent"
+    }`}
     >
       {/* phần header */}
       <div className="flex justify-between items-center h-16 max-w-[1240px] mx-auto px-4 py-2 text-white">

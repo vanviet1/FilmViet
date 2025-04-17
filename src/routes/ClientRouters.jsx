@@ -15,6 +15,7 @@ import RentedMovies from '../components/client/pages/RentedMovies';
 import BuyPackage from '../components/client/pages/BuyPackage';
 import Promotion from '../components/client/pages/Promotion';
 import BlogPage from '../components/client/pages/BlogPage';
+import Account from '../components/client/pages/account/Account';
 
 
 import Dashboard from '../components/admin/dashboard/Dashboard';
@@ -32,6 +33,7 @@ import Package from '../components/admin/vip/Package/Package';
 import Plans from '../components/admin/vip/Plans';
 import Actor from '../components/admin/cast_crew/Actor/Actor';
 import Author from '../components/admin/cast_crew/Author';
+
 import Character from '../components/admin/cast_crew/character/Character';
 import { PATH_ROUTERS_CLIENT, PATH_ROUTERS_ADMIN } from '../config/path';
 const routers = [
@@ -123,6 +125,12 @@ const routers = [
         path: PATH_ROUTERS_CLIENT.BLOGPAGE,
         element: (
           <BlogPage />
+        )
+      },
+      {
+        path: PATH_ROUTERS_CLIENT.ACCOUNT,
+        element: (
+          <Account />
         )
       },
 

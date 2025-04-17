@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ContextFormUi } from "../../../../context/FormUiContext";
 
 function LandingOut5() {
+   const { setStatusUiRegisterForm ,setStatusUiForm } = useContext(ContextFormUi);
   return (
     <div className="py-10 grid grid-cols-1 md:grid-cols-2 gap-4 items-center justify-between">
       {/* Phần nội dung bên trái */}
@@ -12,7 +14,12 @@ function LandingOut5() {
           Tận hưởng trọn vẹn, không gián đoạn mỗi phút giây cảm xúc khi thưởng
           thức bộ phim yêu thích.
         </p>
-        <button className="mt-6 px-6 py-3 bg-black border border-white font-semibold rounded-full hover:bg-white hover:text-black transition">
+        <button 
+        onClick={() => {
+          setStatusUiRegisterForm(true);
+          setStatusUiForm(false);
+        }}
+        className="mt-6 px-6 py-3 bg-black border border-white font-semibold rounded-full hover:bg-white hover:text-black transition">
           Đăng ký ngay
         </button>
       </div>

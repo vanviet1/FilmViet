@@ -254,9 +254,17 @@ const ModalMovie = ({
               </Typography>
               <div className="flex gap-2 flex-wrap">
                 {movie.listCate?.map((item, i) => (
+                  <div  className="relative">
                   <Button key={i} variant="contained" size="small">
                     {getObjectById(categories, item)?.name}
                   </Button>
+                  <button className="absolute -top-2 -right-2 bg-red-500 text-white p-1 rounded-full hover:bg-red-600 transition">
+                    <TiDeleteOutline
+                      onClick={() => handleSelect(item, "categories")}
+                      size={16}
+                    />
+                  </button>
+                </div>
                 ))}
               </div>
 

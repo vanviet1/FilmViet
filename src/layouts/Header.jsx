@@ -4,19 +4,15 @@ import { MdOutlineEmail } from "react-icons/md";
 import { FaRegBell } from "react-icons/fa";
 import { ContextAcount } from "../context/AcountProvider";
 import { useNavigate } from "react-router-dom";
+import { ContextAuthen } from "../context/AuthenProvider";
 
 const Header = () => {
-  const { users, setUsers } = useContext(ContextAcount);
+      const { accountLogin, logout } = useContext(ContextAuthen);
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownTimeout = useRef(null);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    if (users) {
-      setUsers(null);
-    navigate("/");
-    }
-  };
+ 
 
   const handleMouseEnter = () => {
     clearTimeout(dropdownTimeout.current);
@@ -34,7 +30,7 @@ const Header = () => {
       <div>
         <h5 className="text-[30px] text-gray-400">
           Good Morning,{" "}
-          <b className="text-black font-bold">{users?.name || "Guest"}</b>
+          <b className="text-black font-bold">{accountLogin?.name || "Guest"}</b>
         </h5>
         <p className="text-[15px] text-gray-400">
           Your performance summary this week
@@ -54,7 +50,7 @@ const Header = () => {
           <img
             className="w-10 h-10 rounded-full"
             src={
-              users?.imgUrl ||
+              accountLogin?.imgUrl ||
               "https://cdn-icons-png.flaticon.com/512/149/149071.png"
             }
             alt="Avatar"
@@ -67,11 +63,11 @@ const Header = () => {
               onMouseLeave={handleMouseLeave}
             >
               <p className="text-sm pb-2 border-b border-gray-700">
-                {users?.name || users?.email}
+                {accountLogin?.name || accountLogin?.email}
               </p>
 
               <button
-                onClick={handleLogout}
+                onClick={logout}
                 className="mt-2 w-full text-left px-3 py-2 bg-gray-800 rounded hover:bg-gray-700"
               >
                 Đăng xuất

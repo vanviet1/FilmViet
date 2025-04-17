@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { moviesImg } from '../../../../utils/Contants';
 import { partnerImg } from '../../../../utils/Contants';
 import { Button } from '@mui/material';
-
+import { ContextFormUi } from '../../../../context/FormUiContext'
 function LandingOut1() {
+  const { setStatusUiRegisterForm ,setStatusUiForm } = useContext(ContextFormUi);
   return (
     <div className="">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -19,7 +20,10 @@ function LandingOut1() {
             <li>Phim Bộ Hot Châu Á</li>
             <li>Siêu phẩm điện ảnh Hollywood và Disney</li>
           </ul>
-          <button className="mt-6 px-6 py-3 bg-black border border-white font-semibold rounded-full hover:bg-white hover:text-black transition">
+          <button onClick={() => {
+                setStatusUiRegisterForm(true);
+                setStatusUiForm(false);
+              }} className="mt-6 px-6 py-3 bg-black border border-white font-semibold rounded-full hover:bg-white hover:text-black transition">
           Đăng ký ngay
         </button>
           {/* Đối tác sản xuất phim */}

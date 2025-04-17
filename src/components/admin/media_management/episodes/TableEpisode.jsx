@@ -47,11 +47,12 @@ function TableEpisode({page, episode, setEpisode, setOpen, filteredEpisode}) {
                                         <TableCell component="th" scope="row">
                                          {getObjectById(movies,row.movie)?.name} 
                                         </TableCell>
-                                        <TableCell component="th" scope="row">  
+                                        <TableCell component="th" scope="row">
+                                                
                                         {row.numberEpisode}     
                                         </TableCell>
                                         <TableCell scope="row">
-                                        {row.urlEpisode}
+                                        {row.urlEpisode.length > 30 ? row.urlEpisode.slice(0,30) + "..." : row.urlEpisode}               
                                         </TableCell>
                                         <TableCell scope="row">
     

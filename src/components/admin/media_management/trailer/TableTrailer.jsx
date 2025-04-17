@@ -52,7 +52,7 @@ function TableTrailer({page, trailer, setTrailer, setOpen, filteredTrailer}) {
                                          {getObjectById(movies,row.movie)?.name} 
                                         </TableCell>
                                         <TableCell scope="row">
-                                        {row.urlTrailer}
+                                        {row.urlTrailer.length > 30 ? row.urlTrailer.slice(0,30) + "..." : row.urlTrailer}   
                                         </TableCell>
                                         <TableCell scope="row">
     

@@ -125,8 +125,8 @@ function ModalUserPages({ open, handleClose, user, setUser, errors, setError }) 
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: 10 }}>
           <FormControl component="fieldset" error={!!errors.role}>
             <RadioGroup row name="role" value={user.role || ""} onChange={handleInput}>
-              <FormControlLabel value="true" control={<Radio />} label="True" />
-              <FormControlLabel value="false" control={<Radio />} label="False" />
+              <FormControlLabel value="admin" control={<Radio />} label="Admin" />
+              <FormControlLabel value="user" control={<Radio />} label="User" />
             </RadioGroup>
           </FormControl>
 
