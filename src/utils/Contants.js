@@ -128,6 +128,17 @@ export const moviesImg = [
         title: "anh1",
         imgUrl: "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/d/r/dragon_1908.png"
     },
+    {
+        id: 5,
+        title: "anh1",
+        imgUrl: "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/d/r/dragon_1908.png"
+    },
+    {
+        id: 6,
+        title: "anh1",
+        imgUrl: "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/d/r/dragon_1908.png"
+    },
+    
 ]
 
 export const partnerImg = [

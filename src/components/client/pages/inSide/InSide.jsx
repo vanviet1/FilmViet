@@ -4,7 +4,7 @@ import InSide2 from './InSide2'
 import InSide3 from './InSide3'
 function InSide() {
   return (
-    <>
+    < >
     <InSide1 />
     <InSide2 />
     <InSide3 />

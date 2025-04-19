@@ -28,7 +28,7 @@ const HomePage = () => {
   return (
     <div className="bg-black text-white">
       <Section />
-      <div className="pt-[50px] px-10">
+      <div className="pt-[40px] px-10 pb-10">
         {!accountLogin ? (
           <div>
             <LandingOut1 />
@@ -40,7 +40,7 @@ const HomePage = () => {
             <LangdingOut7 />
           </div>
         ) : (
-          <div className=" mx-auto">
+          <div className=" mx-auto ">
             {movies?.length > 0 ? (
               < InSide />
             ) : (

@@ -24,20 +24,22 @@ const Header = () => {
   const handleNav = () => {
     setNav(!nav);
   };
-  useEffect(() => {
-    if (location.pathname === "/") {
-      // Trang chủ: header trong suốt và cuộn thì chuyển nền
-      const handleScroll = () => {
-        setScrolling(window.scrollY > 50);
-      };
-      window.addEventListener("scroll", handleScroll);
-      return () => window.removeEventListener("scroll", handleScroll);
-    } else {
-      // Các trang khác: header luôn có nền
-      setScrolling(true);
-    }
-  }, [location.pathname]);
-  
+useEffect(() => {
+  const handleScroll = () => {
+    setScrolling(window.scrollY > 50);
+  };
+
+  if (location.pathname === "/") {
+    // ✅ Check ngay 1 lần
+    handleScroll(); 
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  } else {
+    setScrolling(true);
+  }
+}, [location.pathname]);
+
 
   return (
     <div
