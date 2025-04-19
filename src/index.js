@@ -13,40 +13,44 @@ import { PackagesProvider } from './context/PackagesProvider';
 import { FeaturesProvider } from './context/FeatureProvider';
 import { MoviesProvider } from './context/MovieProvider';
 import { EpisodesProvider } from './context/EpisodeProvider';
-import { TrailersProvider } from './context/TrailersProvider'; 
+import { TrailersProvider } from './context/TrailersProvider';
 import { AuThenProvider } from './context/AuthenProvider';
+import Comment from './components/admin/engagement_pages/Comment';
+import { CommentProvider } from './context/CommentProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <BrowserRouter>
-          <AcountProvider>
-            <FormUiProvider>
-                    <CategoriesProvider>
-                        <PlansProvider>
-                           <AuthorsProvider>
-                              <CharacterProvider>
-                                <ActorsProvider>
-                                  <PackagesProvider>
-                                    <FeaturesProvider>
-                                      <MoviesProvider>
-                                        <EpisodesProvider>
-                                          <TrailersProvider>
-                                            <AuThenProvider>                                 
-                                            <App />
-                                            </AuThenProvider>
-                                          </TrailersProvider>
-                                        </EpisodesProvider>
-                                      </MoviesProvider>
-                                    </FeaturesProvider>
-                                  </PackagesProvider>
-                                 </ActorsProvider>
-                               </CharacterProvider>
-                           </AuthorsProvider>
-                        </PlansProvider>
-                    </CategoriesProvider>
-                    </FormUiProvider>
-          </AcountProvider> 
-    </BrowserRouter>
+  <BrowserRouter>
+    <AcountProvider>
+      <FormUiProvider>
+        <CategoriesProvider>
+          <PlansProvider>
+            <AuthorsProvider>
+              <CharacterProvider>
+                <ActorsProvider>
+                  <PackagesProvider>
+                    <FeaturesProvider>
+                      <MoviesProvider>
+                        <EpisodesProvider>
+                          <TrailersProvider>
+                            <AuThenProvider>
+                              <CommentProvider>
+                                <App />
+                              </CommentProvider>
+                            </AuThenProvider>
+                          </TrailersProvider>
+                        </EpisodesProvider>
+                      </MoviesProvider>
+                    </FeaturesProvider>
+                  </PackagesProvider>
+                </ActorsProvider>
+              </CharacterProvider>
+            </AuthorsProvider>
+          </PlansProvider>
+        </CategoriesProvider>
+      </FormUiProvider>
+    </AcountProvider>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -10,42 +10,45 @@ import { listMenu } from "../../../utils/Contants";
 import { listInformation } from "../../../utils/Contants";
 import { ContextAuthen } from "../../../context/AuthenProvider";
 import { useLocation } from "react-router-dom";
+import { Autocomplete, Avatar, ListItem, ListItemAvatar, ListItemText, Stack, TextField } from "@mui/material";
+import { ContextMovies } from "../../../context/MovieProvider";
+import { getObjectById } from "../../../utils/FunctionConvert";
 
 const Header = () => {
   const [nav, setNav] = useState(false);
   const [scrolling, setScrolling] = useState(false);
   const { setStatusUiForm } = useContext(ContextFormUi);
   const [showDropdown, setShowDropdown] = useState(false);
-    const { accountLogin, logout } = useContext(ContextAuthen);
-    const location = useLocation();
+  const { accountLogin, logout } = useContext(ContextAuthen);
+  const movies = useContext(ContextMovies);
+  const location = useLocation();
 
   let dropdownTimeout;
 
   const handleNav = () => {
     setNav(!nav);
   };
-useEffect(() => {
-  const handleScroll = () => {
-    setScrolling(window.scrollY > 50);
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolling(window.scrollY > 50);
+    };
 
-  if (location.pathname === "/") {
-    // ✅ Check ngay 1 lần
-    handleScroll(); 
+    if (location.pathname === "/") {
+      // ✅ Check ngay 1 lần
+      handleScroll();
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  } else {
-    setScrolling(true);
-  }
-}, [location.pathname]);
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    } else {
+      setScrolling(true);
+    }
+  }, [location.pathname]);
 
 
   return (
     <div
-    className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-      scrolling ? "bg-black/90" : "bg-transparent"
-    }`}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolling ? "bg-black/90" : "bg-transparent"
+        }`}
     >
       {/* phần header */}
       <div className="flex justify-between items-center h-16 max-w-[1240px] mx-auto px-4 py-2 text-white">
@@ -69,19 +72,57 @@ useEffect(() => {
               </Link>
             </li>
           ))}
-        </ul>  
+        </ul>
         {/* User info */}
         {!accountLogin ? (
-        
+
           <button
             onClick={() => setStatusUiForm(true)}
             className="px-4 py-2 bg-black border border-white rounded-full hover:bg-white hover:text-black"
           >
-            Đăng Nhập 
+            Đăng Nhập
           </button>
-         
+
         ) : (
           <div className="relative flex gap-3 items-center">
+            <Stack spacing={2} sx={{ width: 300 }}>
+              <Autocomplete
+                id="free-solo-demo"
+                size="small"
+                freeSolo
+                options={movies}
+                getOptionLabel={(option) => option.name} // Lấy tên của phim làm label
+                filterOptions={(options, state) => {
+                  // Lọc phim dựa trên tên
+                  return options.filter((option) =>
+                    option.name.toLowerCase().includes(state.inputValue.toLowerCase())
+                  );
+                }}
+                sx={{
+                  '& .MuiInputBase-root': {
+                    color: 'white', // Màu chữ trong input
+                  },
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#ccc',  // Màu viền khi không focus
+                  },
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#1976d2',  // Màu viền khi hover
+                  },
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: '#1976d2',  // Màu viền khi focus
+                  },
+                }}
+                renderInput={(params) => <TextField {...params} label="Search..." />}
+                renderOption={(props, option) => (
+                  <ListItem {...props}>
+                    <ListItemAvatar>
+                      <Avatar src={option.imgUrl} alt={option.name} />
+                    </ListItemAvatar>
+                    <ListItemText primary={option.name} />
+                  </ListItem>
+                )}
+              />
+            </Stack>
             <Link to={"/buyPackage"}>
               <button className="bg-yellow-500 text-white font-bold py-2 px-4 rounded-full hover:bg-yellow-600 transition">
                 Mua gói
@@ -99,7 +140,7 @@ useEffect(() => {
               }}
               onMouseLeave={() => {
                 dropdownTimeout = setTimeout(() => {
-                  setShowDropdown(false); 
+                  setShowDropdown(false);
                 }, 500);
               }}
             >
@@ -149,9 +190,8 @@ useEffect(() => {
 
       {/* Mobile Menu */}
       <div
-        className={`absolute top-16 left-0 w-full bg-[#000300] text-white transition-all duration-500 ${
-          nav ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
-        } overflow-hidden`}
+        className={`absolute top-16 left-0 w-full bg-[#000300] text-white transition-all duration-500 ${nav ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+          } overflow-hidden`}
       >
         <ul className="p-4">
           {listMenu?.map((item) => (

@@ -10,7 +10,6 @@ const Header = () => {
       const { accountLogin, logout } = useContext(ContextAuthen);
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownTimeout = useRef(null);
-  const navigate = useNavigate();
 
  
 
@@ -24,6 +23,8 @@ const Header = () => {
       setShowDropdown(false);
     }, 500);
   };
+
+
 
   return (
     <div className="bg-[#f4f5f7] flex items-center justify-between p-5">

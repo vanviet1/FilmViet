@@ -1,11 +1,12 @@
 import React, { createContext, useState, useEffect } from "react";
 import CryptoJS from "crypto-js";
 import { SECRET_KEY } from "../utils/Contants";
+import { useNavigate } from "react-router-dom";
 export const ContextAuthen = createContext();
 
 export const AuThenProvider = ({ children }) => {
   const [accountLogin, setAccountLogin] = useState(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
    setAccountLogin(getLocal("accountLogin"));
   },[]);
@@ -39,6 +40,7 @@ export const AuThenProvider = ({ children }) => {
 const logout = () => {
    setAccountLogin(null);
    localStorage.removeItem("accountLogin");
+   navigate("/");
 }
   return (
     <ContextAuthen.Provider value={{saveLocal, accountLogin, logout }}>

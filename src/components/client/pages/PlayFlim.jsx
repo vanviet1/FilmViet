@@ -1,6 +1,6 @@
 import { React, useContext, useEffect, useState } from "react";
 import ReactPlayer from "react-player";
-import { Button } from "@mui/material";
+import { Avatar, Button, List, ListItem, ListItemText, Paper, TextField, Typography } from "@mui/material";
 import MySwiper from "../../../libs/Swiper";
 import { SwiperSlide } from "swiper/react";
 import { Link } from "react-router-dom";
@@ -10,16 +10,24 @@ import { BiBookmark } from "react-icons/bi";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { ContextMovies } from "../../../context/MovieProvider";
 import { ContextEpisodes } from "../../../context/EpisodeProvider";
-import { filterByid } from "../../../utils/FunctionConvert";
+import { filterByid, formatCommentTime, getObjectById } from "../../../utils/FunctionConvert";
+import { ContextAuthen } from "../../../context/AuthenProvider";
+import { addDocument } from "../../../services/firebaseService";
+import { ContextComments } from "../../../context/CommentProvider";
+import { ContextAcount } from "../../../context/AcountProvider";
 
 function PlayFlim() {
   const { id } = useParams();
+  const { acounts } = useContext(ContextAcount);
+  const comments = useContext(ContextComments);
   const movies = useContext(ContextMovies);
   const episodes = useContext(ContextEpisodes);
   const [episodesByMovie, setEpisodesByMovie] = useState([]);
   const [playMovie, setPlayMovie] = useState({});
   const [currentMovie, setCurrentMovie] = useState({});
-
+  const { accountLogin } = useContext(ContextAuthen);
+  const [newComment, setNewComment] = useState('');
+  const [commentByMovie,setCommentByMovie] = useState([]);
   useEffect(() => {
     const listEpisodes = filterByid(episodes, id, "movie").sort(
       (a, b) => a.numberEpisode - b.numberEpisode
@@ -30,8 +38,21 @@ function PlayFlim() {
     const movie = movies.find((m) => m.id === id);
     setCurrentMovie(movie || {});
   }, [id, episodes, movies]);
-  console.log(playMovie);
 
+  useEffect(() => {
+    setCommentByMovie(filterByid(comments,id,"idMovie"));
+  },[id,comments]);
+
+  const handleAddComment = async () => {
+      const content = {
+        content : newComment,
+        createdAt : new Date(),
+        isUser : accountLogin.id ,
+        idMovie : id,
+      }
+      setNewComment("");
+    await addDocument("comments", content);
+  };
   return (
     <div className="bg-black text-white min-h-screen items-center p-8 pt-20">
       {/* Phần Video */}
@@ -71,16 +92,72 @@ function PlayFlim() {
         </p>
       </div>
       {/* Phần bình luận */}
-      <div className="mt-6 p-5 bg-gray-900 rounded-lg shadow-lg w-4/5 mx-auto">
-        <h2 className="text-xl font-bold mb-4">Bình luận</h2>
-        <div className="bg-white p-4 rounded-lg">
-          <div
-            className="fb-comments"
-            data-href={window.location.href}
-            data-width="100%"
-            data-numposts="5"
-          ></div>
-        </div>
+      <div className="w-4/5 mx-auto mt-3">
+        <Typography variant="h6" gutterBottom>
+          Bình luận
+        </Typography>
+
+        {/* Ô nhập bình luận */}
+        <TextField
+          label="Nhập bình luận"
+          variant="outlined"
+          fullWidth
+          multiline
+          rows={4}
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+          sx={{
+            marginBottom: 2,
+            backgroundColor: 'white', // Đặt nền trắng
+            '& .MuiInputBase-root': {
+              color: 'black', // Đặt màu chữ đen
+            },
+            '& .MuiOutlinedInput-notchedOutline': {
+              borderColor: '#ccc', // Đặt màu viền nếu cần
+            }
+          }}
+        />
+
+        {/* Nút gửi bình luận */}
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleAddComment}
+          disabled={newComment.trim() === ''}
+        >
+          Gửi bình luận
+        </Button>
+
+        {/* Hiển thị danh sách bình luận */}
+        <Paper sx={{ marginTop: 2, padding: 2 }}>
+          <List>
+            {commentByMovie.length === 0 ? (
+              <Typography variant="body2" color="text.secondary">
+                Chưa có bình luận nào.
+              </Typography>
+            ) : (
+              commentByMovie.map((comment, index) => (
+                <ListItem key={index} alignItems="flex-start">
+                {/* Avatar người bình luận */}
+                <Avatar alt="#" src={getObjectById(acounts,comment.isUser)?.imgUrl} sx={{ marginRight: 2 }} />
+  
+                {/* Nội dung bình luận và thời gian */}
+                <ListItemText
+                  primary={<Typography variant="body1">{comment.content}</Typography>}
+                  secondary={
+                    <>
+                      {/* Thời gian bình luận */}
+                      <Typography variant="body2" color="text.secondary">
+                      {formatCommentTime(comment.createdAt)}
+                      </Typography>
+                    </>
+                  }
+                />
+              </ListItem>
+              ))
+            )}
+          </List>
+        </Paper>
       </div>
 
       {/* Danh sách phim liên quan */}
