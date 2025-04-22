@@ -4,7 +4,7 @@ const PATH_ROUTERS_CLIENT = {
     STOREMOVIE:"/Storemovie",
     SERIES:"/series",
     RENTED:"/rentedMovies",
-    BUYPACKAGE:"/buyPackage",
+    BUYPACKAGE:"/buyPackage", 
     LOGIN:"/form/Login",
     REGISTER:"/form/register",
     MOVIES:'/movies/:id',
@@ -13,7 +13,8 @@ const PATH_ROUTERS_CLIENT = {
     PAYPACKAGE:'/payPackage/:id',
     PROMOTION:'/promotion',
     BLOGPAGE:'/blog',
-    ACCOUNT:"/account"
+    ACCOUNT:"/account",
+    WAREHOUSE:"/warehouse"
     
 }
 const PATH_ROUTERS_ADMIN = {

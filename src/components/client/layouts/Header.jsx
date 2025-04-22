@@ -111,6 +111,9 @@ const Header = () => {
                   '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
                     borderColor: '#1976d2',  // Màu viền khi focus
                   },
+                  '& .MuiInputLabel-root': {
+                    color: 'white',   // label "Search..." trắng
+                  }
                 }}
                 renderInput={(params) => <TextField {...params} label="Search..." />}
                 renderOption={(props, option) => (

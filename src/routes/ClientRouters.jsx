@@ -16,6 +16,7 @@ import BuyPackage from '../components/client/pages/BuyPackage';
 import Promotion from '../components/client/pages/Promotion';
 import BlogPage from '../components/client/pages/BlogPage';
 import Account from '../components/client/pages/account/Account';
+import Warehouse from '../components/client/pages/Warehouse';
 
 
 import Dashboard from '../components/admin/dashboard/Dashboard';
@@ -133,6 +134,13 @@ const routers = [
           <Account />
         )
       },
+      {
+        path: PATH_ROUTERS_CLIENT.WAREHOUSE,
+        element: (
+          <Warehouse />
+        )
+      },
+
 
 
     ]
